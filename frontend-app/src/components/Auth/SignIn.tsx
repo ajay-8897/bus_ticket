@@ -15,7 +15,9 @@ const SignIn: React.FC = () => {
         try {
             const res = await signIn(email, password);
             if (res && res.success) {
-                // Make sure your router has a route for '/buslistpage' that renders BusListPage
+                // Set signed-in flag and username for NavBar
+                localStorage.setItem('signedIn', 'true');
+                localStorage.setItem('username', res.userName || '');
                 history.push('/buslistpage');
             } else {
                 setError('Login failed. Please try again.');

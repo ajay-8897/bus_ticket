@@ -86,11 +86,35 @@ def signin():
         conn.close()
         if not user or not user.get('userPassword') or not check_password_hash(user['userPassword'], password):
             return jsonify({'error': 'Invalid credentials'}), 401
-        return jsonify({'success': True, 'userId': user['id']})
+        return jsonify({'success': True, 'userId': user['id'],  'userName': user['userName']})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-if __name__ == '__main__':
-    app.run(port=5000)
+@app.route('/buses/search', methods=['POST'])
+def search_buses():
+    data = request.get_json()
+    start_location = data.get('start_location')
+    destination = data.get('destination')
+    departure_datetime = data.get('departure_datetime')
+    if not start_location or not destination or not departure_datetime:
+        return jsonify({'error': 'Missing fields'}), 400
+    conn = get_db()
+    try:
+        # Use dictionary cursor for both connectors
+        try:
+            cur = conn.cursor(dictionary=True)
+        except TypeError:
+            cur = conn.cursor()
+        query = (
+            "SELECT * FROM buses WHERE start_location = %s AND destination = %s AND departure_datetime = %s"
+        )
+        cur.execute(query, (start_location, destination, departure_datetime))
+        buses = cur.fetchall()
+        cur.close()
+        conn.close()
+        return jsonify({'success': True, 'buses': buses})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     app.run(port=5000)

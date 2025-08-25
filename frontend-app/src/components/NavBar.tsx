@@ -12,16 +12,23 @@ const linkStyle: React.CSSProperties = {
 const NavBar: React.FC = () => {
   const history = useHistory();
   const [hideNav, setHideNav] = useState(false);
+  const [signedIn, setSignedIn] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>('');
 
   useEffect(() => {
-    // Only hide navbar when navigating to /signin via click, not on refresh or when on home page
+    // Listen for route changes
     const unlisten = history.listen((location) => {
       if (location.pathname === '/signin') {
         setHideNav(true);
       } else {
         setHideNav(false);
       }
+      setSignedIn(localStorage.getItem('signedIn') === 'true');
+      setUsername(localStorage.getItem('username') || '');
     });
+    // Initial check
+    setSignedIn(localStorage.getItem('signedIn') === 'true');
+    setUsername(localStorage.getItem('username') || '');
     return () => unlisten();
   }, [history]);
 
@@ -52,71 +59,92 @@ const NavBar: React.FC = () => {
       >
         HimBusses
       </div>
-      <div style={{ marginLeft: 'auto', display: 'flex', gap: '1rem' }}>
-        <span
-          style={linkStyle}
-          onClick={() => {
-            if (window.location.pathname !== '/') {
-              history.push('/');
-              setTimeout(() => {
+      {/* Only show links if not signed in */}
+      {!signedIn ? (
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: '1rem' }}>
+          <span
+            style={linkStyle}
+            onClick={() => {
+              if (window.location.pathname !== '/') {
+                history.push('/');
+                setTimeout(() => {
+                  const aboutSection = document.getElementById('about-section');
+                  if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              } else {
                 const aboutSection = document.getElementById('about-section');
                 if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
-              }, 100);
-            } else {
-              const aboutSection = document.getElementById('about-section');
-              if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-          onMouseOver={e => (e.currentTarget.style.color = '#8b6f23')}
-          onMouseOut={e => (e.currentTarget.style.color = '#000')}
-        >
-          About
-        </span>
-        <span
-          style={linkStyle}
-          onClick={() => {
-            if (window.location.pathname !== '/') {
-              history.push('/');
-              setTimeout(() => {
+              }
+            }}
+            onMouseOver={e => (e.currentTarget.style.color = '#8b6f23')}
+            onMouseOut={e => (e.currentTarget.style.color = '#000')}
+          >
+            About
+          </span>
+          <span
+            style={linkStyle}
+            onClick={() => {
+              if (window.location.pathname !== '/') {
+                history.push('/');
+                setTimeout(() => {
+                  const supportSection = document.getElementById('support-section');
+                  if (supportSection) supportSection.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              } else {
                 const supportSection = document.getElementById('support-section');
                 if (supportSection) supportSection.scrollIntoView({ behavior: 'smooth' });
-              }, 100);
-            } else {
-              const supportSection = document.getElementById('support-section');
-              if (supportSection) supportSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-          onMouseOver={e => (e.currentTarget.style.color = '#8b6f23')}
-          onMouseOut={e => (e.currentTarget.style.color = '#000')}
-        >
-          Support
-        </span>
-        <span
-          style={linkStyle}
-          onClick={() => {
-            setHideNav(true);
-            history.push('/signin');
-          }}
-          onMouseOver={e => (e.currentTarget.style.color = '#8b6f23')}
-          onMouseOut={e => (e.currentTarget.style.color = '#000')}
-        >
-          <span
-            style={{
-              display: 'inline-block',
-              verticalAlign: 'middle',
-              marginRight: '6px',
-              color: '#1976d2'
+              }
             }}
+            onMouseOver={e => (e.currentTarget.style.color = '#8b6f23')}
+            onMouseOut={e => (e.currentTarget.style.color = '#000')}
           >
-            {/* Simple user/account SVG icon */}
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="8" r="4" stroke="#1976d2" strokeWidth="2" />
-              <path d="M4 20c0-3.3137 3.134-6 7-6s7 2.6863 7 6" stroke="#1976d2" strokeWidth="2" />
-            </svg>
+            Support
           </span>
-          Account
-        </span>
-      </div>
+          <span
+            style={linkStyle}
+            onClick={() => {
+              setHideNav(true);
+              history.push('/signin');
+            }}
+            onMouseOver={e => (e.currentTarget.style.color = '#8b6f23')}
+            onMouseOut={e => (e.currentTarget.style.color = '#000')}
+          >
+            <span
+              style={{
+                display: 'inline-block',
+                verticalAlign: 'middle',
+                marginRight: '6px',
+                color: '#1976d2'
+              }}
+            >
+              {/* Simple user/account SVG icon */}
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="8" r="4" stroke="#1976d2" strokeWidth="2" />
+                <path d="M4 20c0-3.3137 3.134-6 7-6s7 2.6863 7 6" stroke="#1976d2" strokeWidth="2" />
+              </svg>
+            </span>
+            Account
+          </span>
+        </div>
+      ) : (
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <span style={{ ...linkStyle, fontWeight: 'bold', color: '#1976d2' }}>
+            {username}
+          </span>
+          <span
+            style={linkStyle}
+            onClick={() => {
+              localStorage.removeItem('signedIn');
+              localStorage.removeItem('username');
+              window.location.href = '/';
+            }}
+            onMouseOver={e => (e.currentTarget.style.color = '#8b6f23')}
+            onMouseOut={e => (e.currentTarget.style.color = '#000')}
+          >
+            Sign Out
+          </span>
+        </div>
+      )}
     </nav>
   );
 };
