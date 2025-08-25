@@ -1,62 +1,96 @@
 from flask import Flask, request, jsonify
-import sqlite3
+import mysql.connector
+from mysql.connector import Error
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
+
 def get_db():
-    conn = sqlite3.connect('users.db')
-    conn.row_factory = sqlite3.Row
-    return conn
-
-def init_db():
-    conn = get_db()
-    conn.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE,
-            password TEXT
+    try:
+        return mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='Ajay@176084',
+            database='himbuses',
+            auth_plugin='mysql_native_password',
+            # Ensure dictionary cursor for mysql-connector
+            use_pure=True
         )
-    ''')
-    conn.commit()
-    conn.close()
-
-init_db()
+    except Error as e:
+        print(f"Error connecting with mysql-connector: {e}")
+        # Fallback to pymysql if mysql-connector fails due to auth plugin
+        try:
+            import pymysql
+            return pymysql.connect(
+                host='localhost',
+                user='root',
+                password='Ajay@176084',
+                database='himbuses',
+                autocommit=True,
+                cursorclass=pymysql.cursors.DictCursor
+            )
+        except Exception as ex:
+            print(f"Fallback pymysql also failed: {ex}")
+            raise
 
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-    if not username or not password:
+    username = data.get('userName')
+    useremail = data.get('userEmail')
+    password = data.get('userPassword')
+    if not username or not useremail or not password:
         return jsonify({'error': 'Missing fields'}), 400
     hashed = generate_password_hash(password)
     try:
         conn = get_db()
         cur = conn.cursor()
-        cur.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, hashed))
-        conn.commit()
-        user_id = cur.lastrowid
+        try:
+            cur.execute(
+                'INSERT INTO users (userName, userEmail, userPassword) VALUES (%s, %s, %s)',
+                (username, useremail, hashed)
+            )
+            try:
+                conn.commit()
+            except Exception:
+                pass
+            user_id = cur.lastrowid if hasattr(cur, 'lastrowid') else None
+        except Exception as e:
+            if 'Duplicate entry' in str(e):
+                return jsonify({'error': 'User exists'}), 400
+            return jsonify({'error': str(e)}), 500
+        cur.close()
         conn.close()
         return jsonify({'success': True, 'userId': user_id})
-    except sqlite3.IntegrityError:
-        return jsonify({'error': 'User exists'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/signin', methods=['POST'])
 def signin():
     data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+    username = data.get('userName')
+    password = data.get('userPassword')
     conn = get_db()
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM users WHERE username = ?', (username,))
-    user = cur.fetchone()
-    conn.close()
-    if not user or not check_password_hash(user['password'], password):
-        return jsonify({'error': 'Invalid credentials'}), 401
-    return jsonify({'success': True, 'userId': user['id']})
+    try:
+        # Use dictionary cursor for both connectors
+        try:
+            cur = conn.cursor(dictionary=True)
+        except TypeError:
+            # For pymysql, cursor is already DictCursor
+            cur = conn.cursor()
+        cur.execute('SELECT * FROM users WHERE userName = %s', (username,))
+        user = cur.fetchone()
+        print("Fetched user from DB:", user)  # Debug print
+        cur.close()
+        conn.close()
+        if not user or not user.get('userPassword') or not check_password_hash(user['userPassword'], password):
+            return jsonify({'error': 'Invalid credentials'}), 401
+        return jsonify({'success': True, 'userId': user['id']})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(port=5000)
