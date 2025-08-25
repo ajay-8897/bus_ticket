@@ -14,13 +14,21 @@ const NavBar: React.FC = () => {
   const [hideNav, setHideNav] = useState(false);
 
   useEffect(() => {
-    // Hide navbar if on /signin route (Account page)
-    if (window.location.pathname === '/signin') {
-      setHideNav(true);
-    } else {
-      setHideNav(false);
-    }
-  }, [window.location.pathname]);
+    // Only hide navbar when navigating to /signin via click, not on refresh or when on home page
+    const unlisten = history.listen((location) => {
+      if (location.pathname === '/signin') {
+        setHideNav(true);
+      } else {
+        setHideNav(false);
+      }
+    });
+    return () => unlisten();
+  }, [history]);
+
+  // Always show navbar on home page
+  if (window.location.pathname === '/') {
+    if (hideNav) setHideNav(false);
+  }
 
   if (hideNav) return null;
 

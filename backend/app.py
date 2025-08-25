@@ -10,18 +10,16 @@ CORS(app)
 
 def get_db():
     try:
+        # Remove auth_plugin argument to let MySQL use the user's default plugin
         return mysql.connector.connect(
             host='localhost',
             user='root',
             password='Ajay@176084',
             database='himbuses',
-            auth_plugin='mysql_native_password',
-            # Ensure dictionary cursor for mysql-connector
             use_pure=True
         )
     except Error as e:
         print(f"Error connecting with mysql-connector: {e}")
-        # Fallback to pymysql if mysql-connector fails due to auth plugin
         try:
             import pymysql
             return pymysql.connect(
@@ -92,5 +90,7 @@ def signin():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+if __name__ == '__main__':
+    app.run(port=5000)
 if __name__ == '__main__':
     app.run(port=5000)
