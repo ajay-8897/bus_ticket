@@ -10,7 +10,6 @@ import CardConfirmationPage from './pages/CardConfirmationPage';
 import TicketPage from './pages/TicketPage';
 import HomePage from './pages/HomePage';
 import NavBar from './components/NavBar';
-import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 
 const App: React.FC = () => {
@@ -27,7 +26,6 @@ const App: React.FC = () => {
         <Route path="/seat-selection" component={SeatSelectionPage} />
         <Route path="/card-confirmation" component={CardConfirmationPage} />
         <Route path="/ticket" component={TicketPage} />
-        <Route path="/about" component={AboutPage} />
         <Route path="/contact" component={ContactPage} />
       </Switch>
     </Router>
