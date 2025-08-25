@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { registerUser } from '../utils/auth';
 
-const SignUpPage: React.FC = () => {
+const SignUpForm: React.FC = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,8 +22,8 @@ const SignUpPage: React.FC = () => {
     };
 
     return (
-        <div className="container">
-            <h2>Sign Up</h2>
+        <div>
+            {/* Remove h2, error and container for parallel rendering */}
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
@@ -59,4 +59,4 @@ const SignUpPage: React.FC = () => {
     );
 };
 
-export default SignUpPage;
+export default SignUpForm;

@@ -5,7 +5,7 @@ const CitySelectionPage: React.FC = () => {
     return (
         <div>
             <h1>Select Your City</h1>
-            <CitySelector />
+            <CitySelector onCitySelect={(city: string) => { /* handle city selection */ }} />
         </div>
     );
 };
