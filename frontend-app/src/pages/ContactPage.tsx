@@ -17,7 +17,7 @@ const ContactPage: React.FC = () => {
   return (
     <div
       style={{
-        width: '100vw',
+        width: '100%',
         padding: '2rem',
         minHeight: '100vh',
         position: 'relative',
@@ -40,7 +40,7 @@ const ContactPage: React.FC = () => {
           <br />
           +1 555 123 4567
         </p>
-        <h3 style={{ textAlign: 'center'}}>Ask your's Query</h3>
+        {/* <h3 style={{ textAlign: 'center' }}>Ask your's Query</h3> */}
         {submitted ? (
           <p style={{ textAlign: 'center', margin: '2rem auto', fontWeight: 'bold', color: '#222' }}>
             Thank you for your message!
@@ -52,12 +52,15 @@ const ContactPage: React.FC = () => {
               maxWidth: '600px',
               minWidth: '320px',
               width: '60vw',
-              margin: '2rem auto',
+              margin: '2rem 0 2rem 5vw', // left-middle alignment
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'flex-start'
             }}
           >
+            <h3 style={{ alignSelf: 'center', width: '100%', textAlign: 'center', marginBottom: '1rem' }}>
+              Ask your's Query
+            </h3>
             <div style={{ width: '100%' }}>
               <label style={{ color: '#222', fontWeight: 'bold' }}>Name:</label>
               <input

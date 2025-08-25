@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 
 const linkStyle: React.CSSProperties = {
@@ -11,6 +11,18 @@ const linkStyle: React.CSSProperties = {
 
 const NavBar: React.FC = () => {
   const history = useHistory();
+  const [hideNav, setHideNav] = useState(false);
+
+  useEffect(() => {
+    // Hide navbar if on /signin route (Account page)
+    if (window.location.pathname === '/signin') {
+      setHideNav(true);
+    } else {
+      setHideNav(false);
+    }
+  }, [window.location.pathname]);
+
+  if (hideNav) return null;
 
   return (
     <nav
@@ -54,7 +66,18 @@ const NavBar: React.FC = () => {
         </span>
         <span
           style={linkStyle}
-          onClick={() => history.push('/contact')}
+          onClick={() => {
+            if (window.location.pathname !== '/') {
+              history.push('/');
+              setTimeout(() => {
+                const supportSection = document.getElementById('support-section');
+                if (supportSection) supportSection.scrollIntoView({ behavior: 'smooth' });
+              }, 100);
+            } else {
+              const supportSection = document.getElementById('support-section');
+              if (supportSection) supportSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
           onMouseOver={e => (e.currentTarget.style.color = '#8b6f23')}
           onMouseOut={e => (e.currentTarget.style.color = '#000')}
         >
@@ -62,7 +85,10 @@ const NavBar: React.FC = () => {
         </span>
         <span
           style={linkStyle}
-          onClick={() => history.push('/signin')}
+          onClick={() => {
+            setHideNav(true);
+            history.push('/signin');
+          }}
           onMouseOver={e => (e.currentTarget.style.color = '#8b6f23')}
           onMouseOut={e => (e.currentTarget.style.color = '#000')}
         >
@@ -86,7 +112,5 @@ const NavBar: React.FC = () => {
     </nav>
   );
 };
-
-
 
 export default NavBar;

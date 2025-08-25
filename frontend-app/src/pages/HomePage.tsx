@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ContactPage from './ContactPage';
 
 const HomePage: React.FC = () => {
     const [from, setFrom] = useState('');
@@ -37,6 +38,13 @@ const HomePage: React.FC = () => {
         // Implement search logic here
         alert(`Searching buses from ${from} to ${to} on ${date}`);
     };
+
+    // Redirect to home page on refresh if not already on home
+    useEffect(() => {
+        if (window.location.pathname !== '/') {
+            window.location.replace('/');
+        }
+    }, []);
 
     return (
         <div
@@ -237,6 +245,14 @@ const HomePage: React.FC = () => {
                     </div>
                   ))}
                 </div>
+            </div>
+            {/* Support section starts here */}
+            <div
+                id="support-section"
+                style={{ width: '100%', padding: '2rem', background: '#fff', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', maxWidth: '900px', margin: '3rem auto 0 auto' }}
+            >
+                <h2 style={{ textAlign: 'center', color: '#111' }}>Support</h2>
+                <ContactPage />
             </div>
         </div>
     );
