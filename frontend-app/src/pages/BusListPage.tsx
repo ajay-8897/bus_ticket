@@ -4,7 +4,8 @@ import BusList from '../components/Buses/BusList';
 const BusListPage: React.FC = () => {
     return (
         <div>
-            <h1>Available Buses</h1>
+            {/* Ensure this is rendered */}
+            <h1 style={{ textAlign: 'center', margin: '2rem 0', color: '#222' }}>Available Buses</h1>
             <BusList />
         </div>
     );

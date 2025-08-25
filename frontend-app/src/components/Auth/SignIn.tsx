@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { login } from '../../utils/auth';
+import { signIn } from '../../utils/auth';
 
 const SignIn: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -13,10 +13,14 @@ const SignIn: React.FC = () => {
         setError('');
 
         try {
-            await login(email, password);
-            history.push('/profile'); // Redirect to profile page on successful login
+            const res = await signIn(email, password);
+            if (res && res.success) {
+                history.replace('/buslistpage'); // Make sure your route is '/buslistpage'
+            } else {
+                setError('Login failed. Please try again.');
+            }
         } catch (err) {
-            setError('Invalid email or password');
+            setError('Login failed. Please try again.');
         }
     };
 

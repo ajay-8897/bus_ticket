@@ -69,7 +69,7 @@ def signup():
 @app.route('/signin', methods=['POST'])
 def signin():
     data = request.get_json()
-    username = data.get('userName')
+    username = data.get('userEmail')
     password = data.get('userPassword')
     conn = get_db()
     try:
@@ -79,7 +79,7 @@ def signin():
         except TypeError:
             # For pymysql, cursor is already DictCursor
             cur = conn.cursor()
-        cur.execute('SELECT * FROM users WHERE userName = %s', (username,))
+        cur.execute('SELECT * FROM users WHERE userEmail = %s', (username,))
         user = cur.fetchone()
         print("Fetched user from DB:", user)  # Debug print
         cur.close()

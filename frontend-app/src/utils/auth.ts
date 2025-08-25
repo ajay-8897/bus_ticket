@@ -4,7 +4,7 @@ const API_URL = 'http://127.0.0.1:5000'; // Adjust the API URL as needed
 
 export const signIn = async (email: string, password: string) => {
     try {
-        const response = await axios.post(`${API_URL}/signin`, { email, password });
+        const response = await axios.post(`${API_URL}/signin`, {  userEmail: email, userPassword: password  });
         localStorage.setItem('token', response.data.token);
         return response.data;
     } catch (error) {
