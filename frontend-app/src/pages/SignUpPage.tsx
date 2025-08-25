@@ -26,10 +26,7 @@ const SignUpForm: React.FC = () => {
 
     if (registered || showSignIn) {
         return (
-            <div style={{ minWidth: 320 }}>
-                <h1>Login Account</h1>
-                <SignIn />
-            </div>
+            <SignIn />
         );
     }
 
