@@ -22,7 +22,7 @@ const App: React.FC = () => {
         <Route path="/signup" component={SignUpPage} />
         <Route path="/profile" component={ProfilePage} />
         <Route path="/city-selection" component={CitySelectionPage} />
-        <Route path="/bus-list" component={BusListPage} />
+        <Route path="/buslistpage" component={BusListPage} />
         <Route path="/seat-selection" component={SeatSelectionPage} />
         <Route path="/card-confirmation" component={CardConfirmationPage} />
         <Route path="/ticket" component={TicketPage} />

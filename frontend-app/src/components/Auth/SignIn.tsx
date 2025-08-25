@@ -15,7 +15,8 @@ const SignIn: React.FC = () => {
         try {
             const res = await signIn(email, password);
             if (res && res.success) {
-                history.replace('/buslistpage'); // Make sure your route is '/buslistpage'
+                // Make sure your router has a route for '/buslistpage' that renders BusListPage
+                history.push('/buslistpage');
             } else {
                 setError('Login failed. Please try again.');
             }
