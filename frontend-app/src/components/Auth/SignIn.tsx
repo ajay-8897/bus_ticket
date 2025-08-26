@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { signIn } from '../../utils/auth';
 
-const SignIn: React.FC = () => {
+interface SignInProps {
+    onShowSignUp?: () => void;
+}
+
+const SignIn: React.FC<SignInProps> = ({ onShowSignUp }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -52,6 +56,15 @@ const SignIn: React.FC = () => {
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button type="submit">Sign In</button>
             </form>
+            <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+                <span>Don't have an account? </span>
+                <span
+                    style={{ color: '#1976d2', textDecoration: 'underline', cursor: 'pointer' }}
+                    onClick={onShowSignUp}
+                >
+                    Sign Up
+                </span>
+            </div>
         </div>
     );
 };

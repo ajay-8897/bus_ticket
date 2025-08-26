@@ -3,9 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import ContactPage from './ContactPage';
 
 const HomePage: React.FC = () => {
-    const [from, setFrom] = useState('');
-    const [to, setTo] = useState('');
-    const [date, setDate] = useState('');
+    const [searchParams, setSearchParams] = useState({ from: '', to: '', date: '' });
     const [loggedIn, setLoggedIn] = useState(false);
     const [animate, setAnimate] = useState(false);
     const [formAnimate, setFormAnimate] = useState(false);
@@ -34,9 +32,16 @@ const HomePage: React.FC = () => {
         }
     }, [visibleWordCount, headingWords.length]);
 
-    const handleSearch = (e: React.FormEvent) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setSearchParams(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();
-        window.location.href = '/signin';
+        // Optionally call your API here, e.g. await searchBuses(searchParams);
+        localStorage.setItem('searchParams', JSON.stringify(searchParams));
+        history.push(`/signin`);
     };
 
     // Redirect to home page on refresh if not already on home
@@ -101,8 +106,9 @@ const HomePage: React.FC = () => {
                         From
                         <input
                             type="text"
-                            value={from}
-                            onChange={e => setFrom(e.target.value)}
+                            name="from"
+                            value={searchParams.from}
+                            onChange={handleInputChange}
                             placeholder="From"
                             style={{ marginLeft: '0.5rem' }}
                             required
@@ -114,8 +120,9 @@ const HomePage: React.FC = () => {
                         To
                         <input
                             type="text"
-                            value={to}
-                            onChange={e => setTo(e.target.value)}
+                            name="to"
+                            value={searchParams.to}
+                            onChange={handleInputChange}
                             placeholder="To"
                             style={{ marginLeft: '0.5rem' }}
                             required
@@ -127,8 +134,9 @@ const HomePage: React.FC = () => {
                         Date of Journey
                         <input
                             type="date"
-                            value={date}
-                            onChange={e => setDate(e.target.value)}
+                            name="date"
+                            value={searchParams.date}
+                            onChange={handleInputChange}
                             style={{ marginLeft: '0.5rem' }}
                             required
                         />

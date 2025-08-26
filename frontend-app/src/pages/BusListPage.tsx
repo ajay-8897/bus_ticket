@@ -1,14 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BusList from '../components/Buses/BusList';
 
-const BusListPage: React.FC = () => {
-    const [searchParams, setSearchParams] = useState({
-        start_location: 'Delhi',
-        destination: 'Jaipur',
-        departure_datetime: '2025-08-26 08:00:00'
-    });
+// Accept params as argument, don't use window inside
+function getInitialSearchParams(params: URLSearchParams) {
+    // Try to get from localStorage first
+    const stored = localStorage.getItem('searchParams');
+    if (stored) {
+        try {
+            const parsed = JSON.parse(stored);
+            return {
+                start_location: parsed.from || 'Delhi',
+                destination: parsed.to || 'Jaipur',
+                departure_datetime: parsed.date ? `${parsed.date} 08:00:00` : '2025-08-26 08:00:00'
+            };
+        } catch {
+            // fallback to below
+        }
+    }
+    const from = params.get('from');
+    const to = params.get('to');
+    const date = params.get('date');
+    return {
+        start_location: from || 'Delhi',
+        destination: to || 'Jaipur',
+        departure_datetime: date ? `${date} 08:00:00` : '2025-08-26 08:00:00'
+    };
+}
 
+const BusListPage: React.FC = () => {
+    // Create params from window.location.search ONCE here
+    const urlParams = new URLSearchParams(window.location.search);
+    // searchParams is the single source of truth for the search/filter state
+    const [searchParams, setSearchParams] = useState(getInitialSearchParams(urlParams));
     const [form, setForm] = useState(searchParams);
+
+    // Update form fields when searchParams changes (e.g. after submit)
+    useEffect(() => {
+        setForm(searchParams);
+    }, [searchParams]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -85,7 +114,6 @@ const BusListPage: React.FC = () => {
                             name="departure_datetime"
                             value={form.departure_datetime.split('T')[0]}
                             onChange={e => {
-                                // Keep time as 08:00:00 by default for demo
                                 setForm({ ...form, departure_datetime: e.target.value + ' 08:00:00' });
                             }}
                             placeholder="dd-mm-yyyy"

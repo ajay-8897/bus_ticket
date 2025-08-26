@@ -26,7 +26,7 @@ const SignUpForm: React.FC = () => {
 
     if (registered || showSignIn) {
         return (
-            <SignIn />
+            <SignIn onShowSignUp={() => setShowSignIn(false)} />
         );
     }
 

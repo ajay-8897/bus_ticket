@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SignIn from '../components/Auth/SignIn';
 import SignUpPage from './SignUpPage';
 
 const SignInPage: React.FC = () => {
+    const [showSignUp, setShowSignUp] = useState(false);
+
     return (
         <div
             style={{
@@ -28,7 +30,11 @@ const SignInPage: React.FC = () => {
                 }}
             >
                 <h2 style={{ marginBottom: '1.5rem', color: 'red' }}>Create or Login Account</h2>
-                <SignUpPage />
+                {showSignUp ? (
+                    <SignUpPage />
+                ) : (
+                    <SignIn onShowSignUp={() => setShowSignUp(true)} />
+                )}
             </div>
         </div>
     );
