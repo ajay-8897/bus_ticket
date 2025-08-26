@@ -14,7 +14,7 @@ const SignUp: React.FC = () => {
         setError('');
 
         try {
-            await registerUser({ username, email, password });
+            await registerUser(username, email, password);
             history.push('/signin');
         } catch (err) {
             setError('Registration failed. Please try again.');

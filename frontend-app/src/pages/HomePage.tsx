@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ContactPage from './ContactPage';
 
 const HomePage: React.FC = () => {
@@ -10,6 +10,7 @@ const HomePage: React.FC = () => {
     const [animate, setAnimate] = useState(false);
     const [formAnimate, setFormAnimate] = useState(false);
     const [cardsAnimate, setCardsAnimate] = useState(false);
+    const history = useHistory();
 
     const headingText = "India's No. 1 online bus ticket booking site";
     const smileIcon = (
@@ -35,8 +36,7 @@ const HomePage: React.FC = () => {
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
-        // Implement search logic here
-        alert(`Searching buses from ${from} to ${to} on ${date}`);
+        window.location.href = '/signin';
     };
 
     // Redirect to home page on refresh if not already on home

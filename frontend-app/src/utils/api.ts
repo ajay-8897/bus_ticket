@@ -20,7 +20,7 @@ export const fetchBuses = async () => {
     }
 };
 
-export const bookTicket = async (ticketData) => {
+export const bookTicket = async (ticketData: any) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/tickets`, ticketData);
         return response.data;
