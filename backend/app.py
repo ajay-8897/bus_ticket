@@ -98,6 +98,8 @@ def search_buses():
     departure_datetime = data.get('departure_datetime')
     if not start_location or not destination or not departure_datetime:
         return jsonify({'error': 'Missing fields'}), 400
+    # Extract only the date part (YYYY-MM-DD)
+    departure_date = departure_datetime.split(' ')[0]
     conn = get_db()
     try:
         # Use dictionary cursor for both connectors
@@ -106,9 +108,9 @@ def search_buses():
         except TypeError:
             cur = conn.cursor()
         query = (
-            "SELECT * FROM buses WHERE start_location = %s AND destination = %s AND departure_datetime = %s"
+            "SELECT * FROM buses WHERE start_location = %s AND destination = %s AND DATE(departure_datetime) = %s"
         )
-        cur.execute(query, (start_location, destination, departure_datetime))
+        cur.execute(query, (start_location, destination, departure_date))
         buses = cur.fetchall()
         cur.close()
         conn.close()

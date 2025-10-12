@@ -48,6 +48,12 @@ const BusListPage: React.FC = () => {
         setSearchParams(form);
     };
 
+    // Helper to extract date part from departure_datetime
+    const getDatePart = (datetime: string) => {
+        // Handles both "YYYY-MM-DD" and "YYYY-MM-DD HH:mm:ss"
+        return datetime.split(' ')[0];
+    };
+
     return (
         <>
             {/* Styled Search Bus Box (horizontal, like screenshot) */}
@@ -112,9 +118,11 @@ const BusListPage: React.FC = () => {
                         <input
                             type="date"
                             name="departure_datetime"
-                            value={form.departure_datetime.split('T')[0]}
+                            value={getDatePart(form.departure_datetime)}
                             onChange={e => {
-                                setForm({ ...form, departure_datetime: e.target.value + ' 08:00:00' });
+                                // Preserve time if present, else default to 08:00:00
+                                const time = form.departure_datetime.split(' ')[1] || '08:00:00';
+                                setForm({ ...form, departure_datetime: e.target.value + ' ' + time });
                             }}
                             placeholder="dd-mm-yyyy"
                             required

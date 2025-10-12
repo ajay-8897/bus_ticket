@@ -11,6 +11,7 @@ import TicketPage from './pages/TicketPage';
 import HomePage from './pages/HomePage';
 import NavBar from './components/NavBar';
 import ContactPage from './pages/ContactPage';
+import PaymentPage from './pages/PaymentPage';
 
 const App: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const App: React.FC = () => {
         <Route path="/card-confirmation" component={CardConfirmationPage} />
         <Route path="/ticket" component={TicketPage} />
         <Route path="/contact" component={ContactPage} />
+        <Route path="/payment" component={PaymentPage} />
       </Switch>
     </Router>
   );

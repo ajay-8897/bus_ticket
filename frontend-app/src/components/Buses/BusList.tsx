@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import SeatSelectionModal from './SeatSelectionModal';
 
 interface Bus {
   id: number;
@@ -24,6 +25,8 @@ const BusList: React.FC<BusListProps> = ({ searchParams }) => {
   const [buses, setBuses] = useState<Bus[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedBus, setSelectedBus] = useState<Bus | null>(null);
 
   useEffect(() => {
     const fetchBuses = async () => {
@@ -48,6 +51,11 @@ const BusList: React.FC<BusListProps> = ({ searchParams }) => {
     };
     fetchBuses();
   }, [searchParams]);
+
+  const handleViewSeats = (bus: Bus) => {
+    setSelectedBus(bus);
+    setShowModal(true);
+  };
 
   if (loading) return <div>Loading buses...</div>;
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
@@ -184,6 +192,7 @@ const BusList: React.FC<BusListProps> = ({ searchParams }) => {
               </span>
             </div>
             <button
+              onClick={() => handleViewSeats(bus)}
               style={{
                 background: '#d32f2f',
                 color: '#fff',
@@ -200,6 +209,12 @@ const BusList: React.FC<BusListProps> = ({ searchParams }) => {
           </div>
         </div>
       ))}
+      {showModal && selectedBus && (
+        <SeatSelectionModal
+          bus={selectedBus}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };
