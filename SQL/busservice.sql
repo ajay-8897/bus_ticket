@@ -29,50 +29,101 @@ CREATE TABLE seats (
     FOREIGN KEY (bus_id) REFERENCES buses(id)
 );
 
-INSERT INTO buses VALUES
-(21, 'BUS201', 'Delhi', 'Agra', '2025-10-13 08:00:00', 'AC', 40, 25, 15),
-(22, 'BUS202', 'Mumbai', 'Nashik', '2025-10-14 09:30:00', 'Sleeper', 30, 20, 10),
-(23, 'BUS203', 'Chennai', 'Coimbatore', '2025-10-15 07:45:00', 'Non AC', 35, 10, 25),
-(24, 'BUS204', 'Kolkata', 'Siliguri', '2025-10-16 06:00:00', 'AC', 40, 35, 5),
-(25, 'BUS205', 'Hyderabad', 'Warangal', '2025-10-17 10:15:00', 'Sleeper', 32, 16, 16),
-(26, 'BUS206', 'Ahmedabad', 'Vadodara', '2025-10-18 11:00:00', 'Non AC', 28, 12, 16),
-(27, 'BUS207', 'Lucknow', 'Varanasi', '2025-10-19 05:30:00', 'AC', 40, 40, 0),
-(28, 'BUS208', 'Bhopal', 'Gwalior', '2025-10-20 12:00:00', 'Sleeper', 30, 5, 25),
-(29, 'BUS209', 'Patna', 'Gaya', '2025-10-21 07:00:00', 'Non AC', 36, 18, 18),
-(30, 'BUS210', 'Delhi', 'Chandigarh', '2025-10-22 08:00:00', 'AC', 40, 25, 15),
-(31, 'BUS211', 'Shimla', 'Dehradun', '2025-10-23 09:00:00', 'AC', 40, 22, 18);
+INSERT INTO buses VALUES (1, 'BUS1001', 'Delhi', 'Agra', '2025-11-01 08:00:00', 'AC', 40, 28, 12);
+INSERT INTO buses VALUES (2, 'BUS1002', 'Agra', 'Jaipur', '2025-11-01 12:00:00', 'Non-AC', 40, 22, 18);
+INSERT INTO buses VALUES (3, 'BUS1003', 'Jaipur', 'Lucknow', '2025-11-01 16:00:00', 'Sleeper', 40, 18, 22);
+INSERT INTO buses VALUES (4, 'BUS1004', 'Lucknow', 'Delhi', '2025-11-01 20:00:00', 'AC', 40, 30, 10);
+INSERT INTO buses VALUES (5, 'BUS1005', 'Kanpur', 'Agra', '2025-11-01 08:00:00', 'Non-AC', 40, 26, 14);
+INSERT INTO buses VALUES (6, 'BUS1006', 'Agra', 'Delhi', '2025-11-01 12:00:00', 'AC', 40, 24, 16);
+INSERT INTO buses VALUES (7, 'BUS1007', 'Jaipur', 'Kanpur', '2025-11-01 16:00:00', 'Sleeper', 40, 19, 21);
+INSERT INTO buses VALUES (8, 'BUS1008', 'Delhi', 'Jaipur', '2025-11-01 20:00:00', 'AC', 40, 32, 8);
+INSERT INTO buses VALUES (9, 'BUS1009', 'Lucknow', 'Kanpur', '2025-11-01 08:00:00', 'Non-AC', 40, 25, 15);
+INSERT INTO buses VALUES (10, 'BUS1010', 'Kanpur', 'Jaipur', '2025-11-01 12:00:00', 'Sleeper', 40, 20, 20);
+INSERT INTO buses VALUES (11, 'BUS1011', 'Delhi', 'Agra', '2025-11-02 08:00:00', 'AC', 40, 27, 13);
+INSERT INTO buses VALUES (12, 'BUS1012', 'Agra', 'Jaipur', '2025-11-02 12:00:00', 'Non-AC', 40, 21, 19);
+INSERT INTO buses VALUES (21, 'BUS1041', 'Delhi', 'Lucknow', '2025-11-03 08:00:00', 'AC', 40, 29, 11);
 
-INSERT INTO buses VALUES
-(32, 'BUS132', 'Delhi', 'Haridwar', '2025-10-13 08:00:00', 'AC', 40, 20, 20),
-(33, 'BUS133', 'Mumbai', 'Aurangabad', '2025-10-14 09:30:00', 'Sleeper', 30, 15, 15),
-(34, 'BUS134', 'Chennai', 'Madurai', '2025-10-15 07:45:00', 'Non AC', 35, 12, 23),
-(35, 'BUS135', 'Kolkata', 'Asansol', '2025-10-16 06:00:00', 'AC', 40, 30, 10),
-(36, 'BUS136', 'Hyderabad', 'Nizamabad', '2025-10-17 10:15:00', 'Sleeper', 32, 18, 14),
-(37, 'BUS137', 'Ahmedabad', 'Bhavnagar', '2025-10-18 11:00:00', 'Non AC', 28, 10, 18),
-(38, 'BUS138', 'Lucknow', 'Prayagraj', '2025-10-19 05:30:00', 'AC', 40, 35, 5),
-(39, 'BUS139', 'Bhopal', 'Jabalpur', '2025-10-20 12:00:00', 'Sleeper', 30, 8, 22),
-(40, 'BUS140', 'Patna', 'Muzaffarpur', '2025-10-21 07:00:00', 'Non AC', 36, 20, 16),
-(41, 'BUS141', 'Shimla', 'Chamba', '2025-10-22 09:00:00', 'AC', 40, 18, 22),
-(42, 'BUS142', 'Delhi', 'Amritsar', '2025-10-23 08:00:00', 'AC', 40, 28, 12),
-(43, 'BUS143', 'Mumbai', 'Nagpur', '2025-10-24 09:30:00', 'Sleeper', 30, 17, 13),
-(44, 'BUS144', 'Chennai', 'Tirupati', '2025-10-25 07:45:00', 'Non AC', 35, 14, 21),
-(45, 'BUS145', 'Kolkata', 'Malda', '2025-10-26 06:00:00', 'AC', 40, 32, 8),
-(46, 'BUS146', 'Hyderabad', 'Karimnagar', '2025-10-27 10:15:00', 'Sleeper', 32, 20, 12),
-(47, 'BUS147', 'Ahmedabad', 'Rajkot', '2025-10-28 11:00:00', 'Non AC', 28, 14, 14),
-(48, 'BUS148', 'Lucknow', 'Bareilly', '2025-10-29 05:30:00', 'AC', 40, 38, 2),
-(49, 'BUS149', 'Bhopal', 'Satna', '2025-10-30 12:00:00', 'Sleeper', 30, 10, 20),
-(50, 'BUS150', 'Patna', 'Bhagalpur', '2025-10-31 07:00:00', 'Non AC', 36, 22, 14),
-(51, 'BUS151', 'Shimla', 'Dalhousie', '2025-11-01 09:00:00', 'AC', 40, 20, 20);
 
-INSERT INTO seats VALUES
-(1, 1, 'A1', 'Booked'),
-(2, 1, 'A2', 'Available'),
-(3, 2, 'B1', 'Booked'),
-(4, 2, 'B2', 'Booked'),
-(5, 3, 'C1', 'Available'),
-(6, 3, 'C2', 'Available'),
-(7, 4, 'D1', 'Booked'),
-(8, 5, 'E1', 'Available'),
-(9, 6, 'F1', 'Booked'),
-(10,7, 'G1', 'Booked');
+-- November 1, 2025
+INSERT INTO buses VALUES (22, 'BUS6022', 'Agra', 'Lucknow', '2025-11-01 10:15:00', 'Non-AC', 40, 19, 21);
+INSERT INTO buses VALUES (23, 'BUS6023', 'Jaipur', 'Agra', '2025-11-01 13:45:00', 'Sleeper', 40, 30, 10);
+INSERT INTO buses VALUES (24, 'BUS6024', 'Lucknow', 'Delhi', '2025-11-01 18:00:00', 'AC', 40, 24, 16);
+INSERT INTO buses VALUES (25, 'BUS6025', 'Kanpur', 'Jaipur', '2025-11-01 22:30:00', 'Non-AC', 40, 28, 12);
+
+-- November 2, 2025
+INSERT INTO buses VALUES (26, 'BUS6026', 'Delhi', 'Agra', '2025-11-02 07:30:00', 'Sleeper', 40, 21, 19);
+INSERT INTO buses VALUES (27, 'BUS6027', 'Agra', 'Kanpur', '2025-11-02 10:15:00', 'AC', 40, 25, 15);
+INSERT INTO buses VALUES (28, 'BUS6028', 'Jaipur', 'Lucknow', '2025-11-02 13:45:00', 'Non-AC', 40, 29, 11);
+INSERT INTO buses VALUES (29, 'BUS6029', 'Lucknow', 'Agra', '2025-11-02 18:00:00', 'AC', 40, 22, 18);
+INSERT INTO buses VALUES (30, 'BUS6030', 'Kanpur', 'Delhi', '2025-11-02 22:30:00', 'Sleeper', 40, 32, 8);
+
+-- November 3, 2025
+INSERT INTO buses VALUES (31, 'BUS6031', 'Delhi', 'Jaipur', '2025-11-03 07:30:00', 'Non-AC', 40, 20, 20);
+INSERT INTO buses VALUES (32, 'BUS6032', 'Agra', 'Delhi', '2025-11-03 10:15:00', 'AC', 40, 27, 13);
+INSERT INTO buses VALUES (33, 'BUS6033', 'Kanpur', 'Lucknow', '2025-11-03 13:45:00', 'Sleeper', 40, 23, 17);
+INSERT INTO buses VALUES (34, 'BUS6034', 'Jaipur', 'Kanpur', '2025-11-03 18:00:00', 'AC', 40, 30, 10);
+INSERT INTO buses VALUES (35, 'BUS6035', 'Lucknow', 'Agra', '2025-11-03 22:30:00', 'Non-AC', 40, 18, 22);
+
+-- November 4, 2025
+INSERT INTO buses VALUES (36, 'BUS6036', 'Delhi', 'Lucknow', '2025-11-04 07:30:00', 'Sleeper', 40, 25, 15);
+INSERT INTO buses VALUES (37, 'BUS6037', 'Agra', 'Jaipur', '2025-11-04 10:15:00', 'Non-AC', 40, 19, 21);
+INSERT INTO buses VALUES (38, 'BUS6038', 'Jaipur', 'Delhi', '2025-11-04 13:45:00', 'AC', 40, 28, 12);
+INSERT INTO buses VALUES (39, 'BUS6039', 'Lucknow', 'Kanpur', '2025-11-04 18:00:00', 'AC', 40, 26, 14);
+INSERT INTO buses VALUES (40, 'BUS6040', 'Kanpur', 'Agra', '2025-11-04 22:30:00', 'Sleeper', 40, 21, 19);
+
+-- November 5, 2025
+INSERT INTO buses VALUES (41, 'BUS6041', 'Delhi', 'Agra', '2025-11-05 07:30:00', 'AC', 40, 24, 16);
+INSERT INTO buses VALUES (42, 'BUS6042', 'Agra', 'Lucknow', '2025-11-05 10:15:00', 'Non-AC', 40, 23, 17);
+INSERT INTO buses VALUES (43, 'BUS6043', 'Jaipur', 'Kanpur', '2025-11-05 13:45:00', 'AC', 40, 30, 10);
+INSERT INTO buses VALUES (44, 'BUS6044', 'Lucknow', 'Delhi', '2025-11-05 18:00:00', 'Sleeper', 40, 20, 20);
+INSERT INTO buses VALUES (45, 'BUS6045', 'Kanpur', 'Jaipur', '2025-11-05 22:30:00', 'AC', 40, 22, 18);
+
+-- November 6, 2025
+INSERT INTO buses VALUES (46, 'BUS6046', 'Delhi', 'Jaipur', '2025-11-06 07:30:00', 'Non-AC', 40, 29, 11);
+INSERT INTO buses VALUES (47, 'BUS6047', 'Agra', 'Delhi', '2025-11-06 10:15:00', 'Sleeper', 40, 27, 13);
+INSERT INTO buses VALUES (48, 'BUS6048', 'Kanpur', 'Lucknow', '2025-11-06 13:45:00', 'AC', 40, 25, 15);
+INSERT INTO buses VALUES (49, 'BUS6049', 'Jaipur', 'Agra', '2025-11-06 18:00:00', 'Non-AC', 40, 30, 10);
+INSERT INTO buses VALUES (50, 'BUS6050', 'Lucknow', 'Kanpur', '2025-11-06 22:30:00', 'AC', 40, 28, 12);
+
+-- November 7, 2025
+INSERT INTO buses VALUES (51, 'BUS6051', 'Delhi', 'Kanpur', '2025-11-07 07:30:00', 'AC', 40, 26, 14);
+INSERT INTO buses VALUES (52, 'BUS6052', 'Agra', 'Jaipur', '2025-11-07 10:15:00', 'Sleeper', 40, 30, 10);
+INSERT INTO buses VALUES (53, 'BUS6053', 'Lucknow', 'Delhi', '2025-11-07 13:45:00', 'Non-AC', 40, 20, 20);
+INSERT INTO buses VALUES (54, 'BUS6054', 'Kanpur', 'Agra', '2025-11-07 18:00:00', 'AC', 40, 27, 13);
+INSERT INTO buses VALUES (55, 'BUS6055', 'Jaipur', 'Lucknow', '2025-11-07 22:30:00', 'Sleeper', 40, 23, 17);
+
+-- November 8, 2025
+INSERT INTO buses VALUES (56, 'BUS6056', 'Delhi', 'Jaipur', '2025-11-08 07:30:00', 'AC', 40, 25, 15);
+INSERT INTO buses VALUES (57, 'BUS6057', 'Agra', 'Kanpur', '2025-11-08 10:15:00', 'Non-AC', 40, 29, 11);
+INSERT INTO buses VALUES (58, 'BUS6058', 'Lucknow', 'Agra', '2025-11-08 13:45:00', 'Sleeper', 40, 18, 22);
+INSERT INTO buses VALUES (59, 'BUS6059', 'Kanpur', 'Delhi', '2025-11-08 18:00:00', 'AC', 40, 30, 10);
+INSERT INTO buses VALUES (60, 'BUS6060', 'Jaipur', 'Agra', '2025-11-08 22:30:00', 'Non-AC', 40, 24, 16);
+
+-- November 9, 2025
+INSERT INTO buses VALUES (61, 'BUS6061', 'Delhi', 'Lucknow', '2025-11-09 07:30:00', 'Sleeper', 40, 21, 19);
+INSERT INTO buses VALUES (62, 'BUS6062', 'Agra', 'Jaipur', '2025-11-09 10:15:00', 'AC', 40, 28, 12);
+INSERT INTO buses VALUES (63, 'BUS6063', 'Kanpur', 'Jaipur', '2025-11-09 13:45:00', 'Non-AC', 40, 19, 21);
+INSERT INTO buses VALUES (64, 'BUS6064', 'Lucknow', 'Delhi', '2025-11-09 18:00:00', 'AC', 40, 31, 9);
+INSERT INTO buses VALUES (65, 'BUS6065', 'Jaipur', 'Kanpur', '2025-11-09 22:30:00', 'Sleeper', 40, 26, 14);
+
+-- November 10, 2025
+INSERT INTO buses VALUES (66, 'BUS6066', 'Delhi', 'Agra', '2025-11-10 07:30:00', 'AC', 40, 20, 20);
+INSERT INTO buses VALUES (67, 'BUS6067', 'Agra', 'Lucknow', '2025-11-10 10:15:00', 'Sleeper', 40, 30, 10);
+INSERT INTO buses VALUES (68, 'BUS6068', 'Jaipur', 'Delhi', '2025-11-10 13:45:00', 'Non-AC', 40, 22, 18);
+INSERT INTO buses VALUES (69, 'BUS6069', 'Kanpur', 'Agra', '2025-11-10 18:00:00', 'AC', 40, 27, 13);
+INSERT INTO buses VALUES (70, 'BUS6070', 'Lucknow', 'Kanpur', '2025-11-10 22:30:00', 'Sleeper', 40, 24, 16);
+
+-- November 11, 2025
+INSERT INTO buses VALUES (71, 'BUS6071', 'Delhi', 'Jaipur', '2025-11-11 07:30:00', 'AC', 40, 19, 21);
+INSERT INTO buses VALUES (72, 'BUS6072', 'Agra', 'Kanpur', '2025-11-11 10:15:00', 'Non-AC', 40, 25, 15);
+INSERT INTO buses VALUES (73, 'BUS6073', 'Lucknow', 'Agra', '2025-11-11 13:45:00', 'Sleeper', 40, 29, 11);
+INSERT INTO buses VALUES (74, 'BUS6074', 'Kanpur', 'Delhi', '2025-11-11 18:00:00', 'AC', 40, 22, 18);
+INSERT INTO buses VALUES (75, 'BUS6075', 'Jaipur', 'Lucknow', '2025-11-11 22:30:00', 'Non-AC', 40, 30, 10);
+-- November 12, 2025
+INSERT INTO buses VALUES (76, 'BUS6076', 'Delhi', 'Agra', '2025-11-12 07:30:00', 'Sleeper', 40, 26, 14);
+INSERT INTO buses VALUES (77, 'BUS6077', 'Agra', 'Jaipur', '2025-11-12 10:15:00', 'AC', 40, 21, 19);
+INSERT INTO buses VALUES (78, 'BUS6078', 'Kanpur', 'Lucknow', '2025-11-12 13:45:00', 'Non-AC', 40, 28, 12);
+INSERT INTO buses VALUES (79, 'BUS6079', 'Lucknow', 'Delhi', '2025-11-12 18:00:00', 'AC', 40, 24, 16);
+INSERT INTO buses VALUES (80, 'BUS6080', 'Jaipur', 'Kanpur', '2025-11-12 22:30:00', 'Sleeper', 40, 27, 13);
+select * from buses;
 
